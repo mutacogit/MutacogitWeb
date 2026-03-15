@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth" id="html-root">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mutacogit - Ekibimiz</title>
+
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Khand -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Khand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Calibri', 'sans-serif'],
+                        serif: ['Khand', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            light: '#f8f6f0',
+                            dark: '#2d3748',
+                            teal: '#4a90e2'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Ekstra pürüzsüzlük ve modern dokunuşlar için özel stiller */
+        body {
+            background-color: #faf9f6;
+        }
+
+        /* Nav linkleri için hover animasyonu */
+        .nav-link::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background: #4b5563;
+            transition: width .3s;
+            margin-top: 2px;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-link.active::after {
+            width: 100%;
+            background: #111827;
+        }
+
+        .dark .nav-link.active::after {
+            background: #f3f4f6;
+        }
+    </style>
+</head>
+
+<body
+    class="font-sans text-gray-800 dark:text-gray-200 antialiased selection:bg-gray-800 selection:text-white dark:selection:bg-gray-200 dark:selection:text-gray-900 flex flex-col min-h-screen bg-[#faf9f6] dark:bg-gray-900 transition-colors duration-300">
+
+    <!-- Glassmorphism Navbar -->
+    <!-- bg-white/40, backdrop-blur-md ve border-white/20 class'ları cam efektini verir -->
+    <nav
+        class="fixed w-full z-50 top-0 transition-all duration-300 bg-white/40 dark:bg-gray-900/60 backdrop-blur-md border-b border-white/20 dark:border-gray-700/50 shadow-[0_4px_30px_rgba(0,0,0,0.05)]">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between md:justify-center items-center h-20 relative">
+
+                <!-- Mobil Menü Butonu (Basit Gösterim) -->
+                <div class="md:hidden flex items-center absolute left-0">
+                    <button id="mobile-menu-btn" class="text-gray-800 dark:text-gray-200 hover:text-gray-600 focus:outline-none p-2">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                    <span
+                        class="ml-4 font-serif italic text-lg font-semibold tracking-widest text-gray-900 dark:text-white">MUTACOGIT</span>
+                </div>
+
+                <!-- Navigasyon Linkleri -->
+                <div class="hidden md:flex space-x-6 lg:space-x-10">
+                    <a href="index.html"
+                        class="nav-link text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white font-medium text-sm uppercase tracking-wider transition-colors">Ana
+                        Sayfa</a>
+                    <a href="hakkimizda.html"
+                        class="nav-link text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white font-medium text-sm uppercase tracking-wider transition-colors">Hakkımızda</a>
+                    <a href="ekibimiz.html"
+                        class="nav-link active text-gray-900 dark:text-white font-medium text-sm uppercase tracking-wider transition-colors">Ekibimiz</a>
+                    <a href="dukkan.html"
+                        class="nav-link text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white font-medium text-sm uppercase tracking-wider transition-colors">Dükkan</a>
+                    <a href="atolyelerimiz.html"
+                        class="nav-link text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white font-medium text-sm uppercase tracking-wider transition-colors">Atölyelerimiz</a>
+                    <a href="bize-ulasin.html"
+                        class="nav-link text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white font-medium text-sm uppercase tracking-wider transition-colors">Bize
+                        Ulaşın</a>
+                </div>
+
+                <!-- Dark Mode Toggle Button -->
+                <div class="absolute right-0 flex items-center">
+                    <button id="theme-toggle" type="button"
+                        class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none rounded-full text-sm p-2 transition-colors">
+                        <!-- Dark icon (Moon) -->
+                        <svg id="theme-toggle-dark-icon" class="hidden w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                        </svg>
+                        <!-- Light icon (Sun) -->
+                        <svg id="theme-toggle-light-icon" class="hidden w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+                                fill-rule="evenodd" clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 z-[100] bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl transform translate-x-full transition-transform duration-300 ease-in-out md:hidden flex flex-col justify-center items-center">
+        <!-- Close Button -->
+        <button id="mobile-menu-close" class="absolute top-6 right-6 text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-white focus:outline-none p-2 transition-transform hover:rotate-90">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+        
+        <div class="flex flex-col space-y-8 text-center w-full px-6">
+            <a href="index.html" class="text-2xl font-serif tracking-wide text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Ana Sayfa</a>
+            <a href="hakkimizda.html" class="text-2xl font-serif tracking-wide text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Hakkımızda</a>
+            <a href="ekibimiz.html" class="text-2xl font-serif tracking-wide text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Ekibimiz</a>
+            <a href="dukkan.html" class="text-2xl font-serif tracking-wide text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Dükkan</a>
+            <a href="atolyelerimiz.html" class="text-2xl font-serif tracking-wide text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Atölyelerimiz</a>
+            <a href="bize-ulasin.html" class="text-2xl font-serif tracking-wide text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Bize Ulaşın</a>
+        </div>
+    </div>
+
+
+    <!-- Ana Başlık ve Ekibimiz Bölümü -->
+    <main class="flex-grow pt-32 pb-24 px-6 md:px-12 relative overflow-hidden">
+        <!-- Arka plan yumuşak dokunuşları (index.html'e uyumlu dekorlar) -->
+        <div
+            class="absolute top-10 right-10 w-96 h-96 bg-blue-100 dark:bg-blue-900/10 rounded-full blur-3xl opacity-50 pointer-events-none">
+        </div>
+        <div
+            class="absolute bottom-20 left-10 w-80 h-80 bg-orange-50 dark:bg-purple-900/10 rounded-full blur-3xl opacity-60 pointer-events-none">
+        </div>
+
+        <div class="max-w-7xl mx-auto">
+
+            <div class="text-center mb-16 relative z-10">
+                <h1
+                    class="text-5xl md:text-6xl font-serif text-gray-900 dark:text-white font-bold tracking-tight mb-4 drop-shadow-sm transition-colors">
+                    Ekibimiz
+                </h1>
+                <div class="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-500 mx-auto rounded-full mb-6"></div>
+                <p
+                    class="text-xl md:text-2xl text-gray-700 dark:text-gray-200 font-light max-w-3xl mx-auto tracking-wide">
+                    Birlikte düşünmeye cesaret eden, üretken ve dinamik topluluğumuzla tanışın.
+                </p>
+            </div>
+
+            <!-- 3x3 Glassmorphism Ekip Grid -->
+            <!-- 3 Sütunlu Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12 relative z-10">
+
+                <!-- Ekip Üyesi Kartı 1 -->
+                <div
+                    class="group backdrop-blur-xl bg-white/40 dark:bg-gray-800/50 border border-white/60 dark:border-gray-600/40 p-8 rounded-3xl shadow-[0_8px_32px_rgba(0,0,0,0.08)] transform transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.12)] hover:bg-white/50 dark:hover:bg-gray-800/70 flex flex-col items-center text-center">
+                    <div
+                        class="w-44 h-44 rounded-full overflow-hidden mb-6 border-4 border-white/50 dark:border-gray-700 shadow-inner">
+                        <img src="esma.jpeg" alt="Ekip Üyesi"
+                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    </div>
+                    <h3 class="text-2xl font-serif font-bold text-gray-900 dark:text-white mb-2">Esmanur Yüksek</h3>
+                    <p class="text-blue-600 dark:text-blue-400 font-medium tracking-wide mb-4 flex-grow">Kurucu/İletişim
+                        ve Topluluk Yöneticisi</p>
+                    <a href="https://www.linkedin.com/in/esmanur-y%C3%BCksek/" target="_blank" rel="noopener noreferrer"
+                        class="mt-2 px-5 py-2 flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white/50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-full hover:bg-[#0077b5] hover:text-white dark:hover:bg-[#0077b5] dark:hover:text-white hover:border-transparent transition-all duration-300 shadow-sm">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                        </svg>
+                        LinkedIn
+                    </a>
+                </div>
+
+                <!-- Ekip Üyesi Kartı 2 -->
+                <div
+                    class="group backdrop-blur-xl bg-white/40 dark:bg-gray-800/50 border border-white/60 dark:border-gray-600/40 p-8 rounded-3xl shadow-[0_8px_32px_rgba(0,0,0,0.08)] transform transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.12)] hover:bg-white/50 dark:hover:bg-gray-800/70 flex flex-col items-center text-center">
+                    <div
+                        class="w-44 h-44 rounded-full overflow-hidden mb-6 border-4 border-white/50 dark:border-gray-700 shadow-inner">
+                        <img src="rabia.jpeg" alt="Ekip Üyesi"
+                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    </div>
+                    <h3 class="text-2xl font-serif font-bold text-gray-900 dark:text-white mb-2">Rabia Yener</h3>
+                    <p class="text-blue-600 dark:text-blue-400 font-medium tracking-wide mb-4 flex-grow">Kurucu/Ürün ve
+                        Eğitim Geliştirme Yöneticisi</p>
+                    <a href="https://www.linkedin.com/in/rabia-yener/" target="_blank" rel="noopener noreferrer"
+                        class="mt-2 px-5 py-2 flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white/50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-full hover:bg-[#0077b5] hover:text-white dark:hover:bg-[#0077b5] dark:hover:text-white hover:border-transparent transition-all duration-300 shadow-sm">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                        </svg>
+                        LinkedIn
+                    </a>
+                </div>
+
+                <!-- Ekip Üyesi Kartı 3 -->
+                <div
+                    class="group backdrop-blur-xl bg-white/40 dark:bg-gray-800/50 border border-white/60 dark:border-gray-600/40 p-8 rounded-3xl shadow-[0_8px_32px_rgba(0,0,0,0.08)] transform transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.12)] hover:bg-white/50 dark:hover:bg-gray-800/70 flex flex-col items-center text-center">
+                    <div
+                        class="w-44 h-44 rounded-full overflow-hidden mb-6 border-4 border-white/50 dark:border-gray-700 shadow-inner">
+                        <img src="binnur.jpeg" alt="Ekip Üyesi"
+                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    </div>
+                    <h3 class="text-2xl font-serif font-bold text-gray-900 dark:text-white mb-2">Binnur Kızıltaş</h3>
+                    <p class="text-blue-600 dark:text-blue-400 font-medium tracking-wide mb-4 flex-grow">İçerik
+                        Tasarımcısı</p>
+                    <a href="https://www.linkedin.com/in/binnur-k%C4%B1z%C4%B1lta%C5%9F-32b34124a/" target="_blank"
+                        rel="noopener noreferrer"
+                        class="mt-2 px-5 py-2 flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white/50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-full hover:bg-[#0077b5] hover:text-white dark:hover:bg-[#0077b5] dark:hover:text-white hover:border-transparent transition-all duration-300 shadow-sm">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                        </svg>
+                        LinkedIn
+                    </a>
+                </div>
+
+                <!-- Ekip Üyesi Kartı 4 -->
+                <div
+                    class="group backdrop-blur-xl bg-white/40 dark:bg-gray-800/50 border border-white/60 dark:border-gray-600/40 p-8 rounded-3xl shadow-[0_8px_32px_rgba(0,0,0,0.08)] transform transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.12)] hover:bg-white/50 dark:hover:bg-gray-800/70 flex flex-col items-center text-center">
+                    <div
+                        class="w-44 h-44 rounded-full overflow-hidden mb-6 border-4 border-white/50 dark:border-gray-700 shadow-inner">
+                        <img src="yemre.jpg" alt="Ekip Üyesi"
+                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    </div>
+                    <h3 class="text-2xl font-serif font-bold text-gray-900 dark:text-white mb-2">Yusuf Emre Öner</h3>
+                    <p class="text-blue-600 dark:text-blue-400 font-medium tracking-wide mb-4 flex-grow">Teknoloji ve
+                        Yapay Zeka Sorumlusu</p>
+                    <a href="https://www.linkedin.com/in/yusuf-emre-oner/" target="_blank" rel="noopener noreferrer"
+                        class="mt-2 px-5 py-2 flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white/50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-full hover:bg-[#0077b5] hover:text-white dark:hover:bg-[#0077b5] dark:hover:text-white hover:border-transparent transition-all duration-300 shadow-sm">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                        </svg>
+                        LinkedIn
+                    </a>
+                </div>
+
+                <!-- Ekip Üyesi Kartı 5 -->
+                <div
+                    class="group backdrop-blur-xl bg-white/40 dark:bg-gray-800/50 border border-white/60 dark:border-gray-600/40 p-8 rounded-3xl shadow-[0_8px_32px_rgba(0,0,0,0.08)] transform transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.12)] hover:bg-white/50 dark:hover:bg-gray-800/70 flex flex-col items-center text-center">
+                    <div
+                        class="w-44 h-44 rounded-full overflow-hidden mb-6 border-4 border-white/50 dark:border-gray-700 shadow-inner">
+                        <img src="berkay.jpeg" alt="Ekip Üyesi"
+                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    </div>
+                    <h3 class="text-2xl font-serif font-bold text-gray-900 dark:text-white mb-2">Ali Berkay Yaydemir
+                    </h3>
+                    <p class="text-blue-600 dark:text-blue-400 font-medium tracking-wide mb-4 flex-grow">İç Denetim
+                        Sorumlusu</p>
+                    <a href="https://www.linkedin.com/in/berkay-yaydemir-39b39631a/" target="_blank"
+                        rel="noopener noreferrer"
+                        class="mt-2 px-5 py-2 flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-white/50 dark:bg-gray-700/50 border border-gray-200 dark:border-gray-600 rounded-full hover:bg-[#0077b5] hover:text-white dark:hover:bg-[#0077b5] dark:hover:text-white hover:border-transparent transition-all duration-300 shadow-sm">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                        </svg>
+                        LinkedIn
+                    </a>
+                </div>
+
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Basit Footer -->
+    <footer
+        class="bg-white dark:bg-gray-950 border-t border-gray-100 dark:border-gray-800 py-8 mt-auto transition-colors duration-300 relative z-20">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <p class="text-lg text-gray-500 dark:text-gray-400">© 2026 Mutacogit. Tüm hakları saklıdır.</p>
+        </div>
+    </footer>
+
+    <!-- Dark Mode Script -->
+    <script>
+        const html = document.getElementById('html-root');
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const darkIcon = document.getElementById('theme-toggle-dark-icon');
+        const lightIcon = document.getElementById('theme-toggle-light-icon');
+
+        // Dark mode durumunu kontrol et ve ikonları ayarla
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+            lightIcon.classList.remove('hidden');
+        } else {
+            html.classList.remove('dark');
+            darkIcon.classList.remove('hidden');
+        }
+
+        themeToggleBtn.addEventListener('click', function () {
+            // İkonları değiştir
+            darkIcon.classList.toggle('hidden');
+            lightIcon.classList.toggle('hidden');
+
+            // Temayı değiştir ve localStorage'a kaydet
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.setItem('color-theme', 'light');
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('color-theme', 'dark');
+            }
+        });
+    
+        // Mobile Menu Logic
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenuCloseBtn = document.getElementById('mobile-menu-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (mobileMenuBtn && mobileMenuCloseBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.remove('translate-x-full');
+                document.body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
+            });
+
+            mobileMenuCloseBtn.addEventListener('click', () => {
+                mobileMenu.classList.add('translate-x-full');
+                document.body.style.overflow = '';
+            });
+            
+            // Close menu when clicking on a link
+            const mobileLinks = mobileMenu.querySelectorAll('a');
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('translate-x-full');
+                    document.body.style.overflow = '';
+                });
+            });
+        }
+
+    </script>
+</body>
+
+</html>
